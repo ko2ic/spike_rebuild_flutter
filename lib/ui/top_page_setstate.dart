@@ -49,6 +49,7 @@ class _WidgetA extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetA#build()");
     return Center(
       child: Text(
         '${counter}',
@@ -61,6 +62,7 @@ class _WidgetA extends StatelessWidget {
 class _WidgetB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetB#build()");
     return const Text('I am a widget that will not be rebuilt.');
   }
 }
@@ -72,6 +74,7 @@ class _WidgetC extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetC#build()");
     return RaisedButton(
       onPressed: () {
         incrementCounter();

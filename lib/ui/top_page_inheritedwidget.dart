@@ -78,6 +78,7 @@ class _MyInheritedWidget extends InheritedWidget {
 class _WidgetA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetA#build()");
     final _HomePageState state = _HomePage.of(context);
 
     return Center(
@@ -92,6 +93,7 @@ class _WidgetA extends StatelessWidget {
 class _WidgetB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetB#build()");
     return const Text('I am a widget that will not be rebuilt.');
   }
 }
@@ -99,6 +101,7 @@ class _WidgetB extends StatelessWidget {
 class _WidgetC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetC#build()");
     final _HomePageState state = _HomePage.of(context, rebuild: false);
     return RaisedButton(
       onPressed: () {

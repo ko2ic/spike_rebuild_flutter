@@ -38,6 +38,7 @@ class TopPage4 extends StatelessWidget {
 class _WidgetA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetA#build()");
     return Center(
       child: StoreConnector<AppState, int>(
         converter: (store) => store.state.counter,
@@ -55,6 +56,7 @@ class _WidgetA extends StatelessWidget {
 class _WidgetB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetB#build()");
     return const Text('I am a widget that will not be rebuilt.');
   }
 }
@@ -62,6 +64,7 @@ class _WidgetB extends StatelessWidget {
 class _WidgetC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetC#build()");
     return RaisedButton(
       onPressed: () {
         var store = StoreProvider.of<AppState>(context);

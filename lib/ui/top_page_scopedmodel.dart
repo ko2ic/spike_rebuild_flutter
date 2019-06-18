@@ -28,6 +28,18 @@ class TopPage2 extends StatelessWidget {
 class _WidgetA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetA#build()");
+
+// こっちの書き方だとbuildメソッドがリビルドさせる
+//    var model = ScopedModel.of<CounterModel>(context, rebuildOnChange: true);
+//    return Center(
+//      child: Text(
+//        '${model.counter}',
+//        style: Theme.of(context).textTheme.display1,
+//      ),
+//    );
+
+    // こっちは、builderの中だけリビルドされる
     return Center(
       child: ScopedModelDescendant<CounterModel>(
         builder: (context, child, model) {
@@ -44,6 +56,7 @@ class _WidgetA extends StatelessWidget {
 class _WidgetB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("called _WidgetB#build()");
     return const Text('I am a widget that will not be rebuilt.');
   }
 }
@@ -51,16 +64,25 @@ class _WidgetB extends StatelessWidget {
 class _WidgetC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<CounterModel>(
-      rebuildOnChange: false,
-      builder: (context, child, model) {
-        return RaisedButton(
-          onPressed: () {
-            model.incrementCounter();
-          },
-          child: Icon(Icons.add),
-        );
+    print("called _WidgetC#build()");
+    // この場合は、リビルドする必要がないのでこの書き方の方がシンプル
+    return RaisedButton(
+      onPressed: () {
+        ScopedModel.of<CounterModel>(context, rebuildOnChange: false).incrementCounter();
       },
+      child: Icon(Icons.add),
     );
+
+//    return ScopedModelDescendant<CounterModel>(
+//      rebuildOnChange: false,
+//      builder: (context, child, model) {
+//        return RaisedButton(
+//          onPressed: () {
+//            model.incrementCounter();
+//          },
+//          child: Icon(Icons.add),
+//        );
+//      },
+//    );
   }
 }
