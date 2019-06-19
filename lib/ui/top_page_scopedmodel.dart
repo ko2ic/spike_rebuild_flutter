@@ -1,25 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:spike_rebuild_flutter/repository/count_repository.dart';
 import 'package:spike_rebuild_flutter/scopedmodel/counter_model.dart';
+import 'package:spike_rebuild_flutter/scopedmodel/loading_model.dart';
+
+import 'widget/loading_widget_scopedmodel.dart';
 
 class TopPage2 extends StatelessWidget {
+  final CountRepository _repository;
+  final LoadingModel _loadingModel;
+
+  TopPage2(this._repository, this._loadingModel);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Scoped Model Demo'),
-      ),
-      body: ScopedModel(
-        model: CounterModel(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            _WidgetA(),
-            _WidgetB(),
-            _WidgetC(),
-          ],
-        ),
+    return ScopedModel(
+      model: _loadingModel,
+      child: Stack(
+        children: <Widget>[
+          Scaffold(
+            appBar: AppBar(
+              title: const Text('Scoped Model Demo'),
+            ),
+            body: ScopedModel(
+              model: CounterModel(_repository, _loadingModel),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _WidgetA(),
+                  _WidgetB(),
+                  _WidgetC(),
+                ],
+              ),
+            ),
+          ),
+          const LoadingWidget2(),
+        ],
       ),
     );
   }

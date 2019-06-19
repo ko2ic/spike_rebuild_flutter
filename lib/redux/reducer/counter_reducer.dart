@@ -1,9 +1,9 @@
 import 'package:redux/redux.dart';
-import 'package:spike_rebuild_flutter/redux/action/count_up_action.dart';
+import 'package:spike_rebuild_flutter/redux/action/actions.dart';
 
 final counterReducer = combineReducers<int>([
-  TypedReducer<int, CountUpAction>((state, action) {
-    int current = action.counter;
-    return ++current;
+  TypedReducer<int, CountUpSucceededAction>((state, action) {
+    int increaseCount = action.increaseCount;
+    return state + increaseCount;
   }),
 ]);

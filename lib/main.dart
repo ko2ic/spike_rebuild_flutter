@@ -5,6 +5,9 @@ import 'package:spike_rebuild_flutter/ui/top_page_redux.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_scopedmodel.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_setstate.dart';
 
+import 'repository/count_repository.dart';
+import 'scopedmodel/loading_model.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -22,6 +25,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  final CountRepository _repository = CountRepository();
+
+  final LoadingModel _loadingModel = LoadingModel();
+
   final String title;
 
   MyHomePage({this.title});
@@ -40,7 +47,7 @@ class MyHomePage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TopPage0(),
+                    builder: (context) => TopPage0(_repository),
                     fullscreenDialog: true,
                   ));
             },
@@ -51,7 +58,7 @@ class MyHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TopPage1(),
+                  builder: (context) => TopPage1(_repository),
                   fullscreenDialog: true,
                 ),
               );
@@ -64,7 +71,7 @@ class MyHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TopPage2(),
+                  builder: (context) => TopPage2(_repository, _loadingModel),
                   fullscreenDialog: true,
                 ),
               );
@@ -77,7 +84,7 @@ class MyHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TopPage3(),
+                  builder: (context) => TopPage3(_repository),
                   fullscreenDialog: true,
                 ),
               );
@@ -90,7 +97,7 @@ class MyHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TopPage4(),
+                  builder: (context) => TopPage4(_repository),
                   fullscreenDialog: true,
                 ),
               );

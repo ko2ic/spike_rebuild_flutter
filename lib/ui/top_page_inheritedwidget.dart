@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:spike_rebuild_flutter/repository/count_repository.dart';
+
+import 'widget/loading_widget_setstate.dart';
 
 class TopPage1 extends StatelessWidget {
+  final CountRepository _repository;
+
+  TopPage1(this._repository);
+
   @override
   Widget build(BuildContext context) {
     return _HomePage(
+      repository: _repository,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('InheritedWidget Demo'),
@@ -23,8 +31,11 @@ class TopPage1 extends StatelessWidget {
 }
 
 class _HomePage extends StatefulWidget {
+  final CountRepository repository;
+
   _HomePage({
     Key key,
+    this.repository,
     this.child,
   }) : super(key: key);
 
@@ -44,10 +55,20 @@ class _HomePage extends StatefulWidget {
 
 class _HomePageState extends State<_HomePage> {
   int counter = 0;
+  bool isLoading = false;
 
   void _incrementCounter() {
     setState(() {
-      counter++;
+      isLoading = true;
+    });
+    widget.repository.fetch().then((increaseCount) {
+      setState(() {
+        counter += increaseCount;
+      });
+    }).whenComplete(() {
+      setState(() {
+        isLoading = false;
+      });
     });
   }
 
@@ -55,7 +76,12 @@ class _HomePageState extends State<_HomePage> {
   Widget build(BuildContext context) {
     return _MyInheritedWidget(
       data: this,
-      child: widget.child,
+      child: Stack(
+        children: <Widget>[
+          widget.child,
+          LoadingWidget0(isLoading),
+        ],
+      ),
     );
   }
 }

@@ -1,43 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:spike_rebuild_flutter/repository/count_repository.dart';
 
-class TopPage0 extends StatelessWidget {
+import 'widget/loading_widget_setstate.dart';
+
+class TopPage0 extends StatefulWidget {
+  final CountRepository repository;
+
+  TopPage0(this.repository);
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('setState Demo'),
-      ),
-      body: _HomePage(),
-    );
-  }
+  _TopPageState createState() => _TopPageState();
 }
 
-class _HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<_HomePage> {
+class _TopPageState extends State<TopPage0> {
   int _counter = 0;
+  bool _isLoading = false;
 
-  void _incrementCounter() {
+  void _incrementCounter() async {
     setState(() {
-      _counter++;
+      _isLoading = true;
+    });
+    widget.repository.fetch().then((increaseCount) {
+      setState(() {
+        _counter += increaseCount;
+      });
+    }).whenComplete(() {
+      setState(() {
+        _isLoading = false;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _WidgetA(_counter),
-          _WidgetB(),
-          _WidgetC(_incrementCounter),
-        ],
-      ),
+    return Stack(
+      children: <Widget>[
+        Scaffold(
+          appBar: AppBar(
+            title: const Text('setState Demo'),
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _WidgetA(_counter),
+              _WidgetB(),
+              _WidgetC(_incrementCounter),
+            ],
+          ),
+        ),
+        LoadingWidget0(_isLoading),
+      ],
     );
   }
 }

@@ -2,25 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:spike_rebuild_flutter/bloc/counter_bloc.dart';
+import 'package:spike_rebuild_flutter/bloc/loading_bloc.dart';
+import 'package:spike_rebuild_flutter/repository/count_repository.dart';
+
+import 'widget/loading_widget_bloc.dart';
 
 class TopPage3 extends StatelessWidget {
+  final CountRepository _repository;
+
+  TopPage3(this._repository);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BLoC Demo'),
-      ),
-      body: Provider<CounterBloc>(
-        builder: (_) => CounterBloc(),
-        dispose: (_, bloc) => bloc.dispose(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            _WidgetA(),
-            _WidgetB(),
-            _WidgetC(),
-          ],
+    return MultiProvider(
+      providers: [
+        Provider<LoadingBloc>(
+          builder: (_) => LoadingBloc(),
+          dispose: (_, bloc) => bloc.dispose(),
         ),
+        Provider<CounterBloc>(
+          builder: (context) {
+            var bloc = Provider.of<LoadingBloc>(context, listen: false);
+            return CounterBloc(_repository, bloc);
+          },
+          dispose: (_, bloc) => bloc.dispose(),
+        ),
+      ],
+      child: Stack(
+        children: <Widget>[
+          Scaffold(
+            appBar: AppBar(
+              title: const Text('BLoC Demo'),
+            ),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                _WidgetA(),
+                _WidgetB(),
+                _WidgetC(),
+              ],
+            ),
+          ),
+          const LoadingWidget3(),
+        ],
       ),
     );
   }
