@@ -7,6 +7,8 @@ import 'package:spike_rebuild_flutter/ui/top_page_setstate.dart';
 
 import 'repository/count_repository.dart';
 import 'scopedmodel/loading_model.dart';
+import 'ui/top_page_bloc_inheritedwidget.dart';
+import 'ui/top_page_bloc_simple.dart';
 
 void main() => runApp(MyApp());
 
@@ -79,12 +81,38 @@ class MyHomePage extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            title: const Text("BLoCの場合"),
+            title: const Text("BLoCの場合(Provider利用)"),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => TopPage3(_repository),
+                  fullscreenDialog: true,
+                ),
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text("BLoCの場合(blocをコンストラクタで渡すパターン)"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TopPage3_0(_repository),
+                  fullscreenDialog: true,
+                ),
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text("BLoCの場合(InheritedWidgetでのパターン)"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TopPage3_1(_repository),
                   fullscreenDialog: true,
                 ),
               );
