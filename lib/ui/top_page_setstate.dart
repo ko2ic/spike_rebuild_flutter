@@ -66,6 +66,7 @@ class _WidgetA extends StatelessWidget {
     return Center(
       child: Text(
         '${counter}',
+        key: const Key("Text of setState"),
         style: Theme.of(context).textTheme.display1,
       ),
     );
@@ -89,6 +90,7 @@ class _WidgetC extends StatelessWidget {
   Widget build(BuildContext context) {
     print("called _WidgetC#build()");
     return RaisedButton(
+      key: const Key("Button of setState"),
       onPressed: () {
         incrementCounter();
       },

@@ -34,9 +34,13 @@ dev_dependencies:
   mock_web_server: ^4.0.0
   flutter_driver:
     sdk: flutter
-  flutter_test:
-    sdk: flutter
-
+  test: ^1.6.3
+# こっちを使うとimportで'package:flutter_test/flutter_test.dart';を使うことになる。
+# これを使うと Error: Not found: 'dart:ui' になる。
+# そのため test: ^1.6.3を使っているが、これも1.6.4を使うとエラーになる。以下を参照
+# https://github.com/flutter/flutter/issues/27826#issuecomment-480827492
+#  flutter_test:
+#    sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
