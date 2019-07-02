@@ -10,7 +10,7 @@ class _MockLoadingBloc extends Mock implements LoadingBloc {}
 
 main() {
   group('incrementCounter()のテスト', () {
-    test('', () async {
+    test('fetch()の戻りが1の場合', () async {
       var repository = _MockCountRepository();
       var loadingBloc = _MockLoadingBloc();
 
@@ -18,6 +18,7 @@ main() {
 
       when(loadingBloc.loading(true)).thenReturn(null);
       when(repository.fetch()).thenAnswer((_) => Future.value(1));
+      when(loadingBloc.loading(false)).thenReturn(null);
 
       target.incrementCounter();
 
@@ -31,6 +32,12 @@ main() {
           count: 2,
         ),
       );
+
+      verifyInOrder([
+        loadingBloc.loading(true),
+        repository.fetch(),
+        loadingBloc.loading(false),
+      ]);
     });
   });
 }
