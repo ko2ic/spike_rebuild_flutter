@@ -44,6 +44,7 @@ class MyHomePage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           ListTile(
+            key: const Key("in case of setState"),
             title: const Text("setStateの場合"),
             onTap: () {
               Navigator.push(
