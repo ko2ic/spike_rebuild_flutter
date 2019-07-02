@@ -24,9 +24,17 @@ main() {
 
       await untilCalled(loadingModel.loading(false));
 
-      target.addListener(() {
+      bool listenerCalled = false;
+      var listener = () {
         expect(target.counter, 1);
-      });
+        listenerCalled = true;
+      };
+
+      target.addListener(listener);
+
+      await untilCalled(listener);
+
+      expect(listenerCalled, true);
 
       verifyInOrder([
         loadingModel.loading(true),
