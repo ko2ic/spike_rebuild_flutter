@@ -2,7 +2,7 @@ import 'package:redux/redux.dart';
 import 'package:spike_rebuild_flutter/redux/action/actions.dart';
 import 'package:spike_rebuild_flutter/redux/reducer/app_state_reducer.dart';
 import 'package:spike_rebuild_flutter/redux/state/app_state.dart';
-import 'package:test_api/test_api.dart';
+import 'package:test/test.dart';
 
 main() {
   group('counterReducerのテスト', () {

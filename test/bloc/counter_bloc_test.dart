@@ -2,7 +2,7 @@ import 'package:mockito/mockito.dart';
 import 'package:spike_rebuild_flutter/bloc/counter_bloc.dart';
 import 'package:spike_rebuild_flutter/bloc/loading_bloc.dart';
 import 'package:spike_rebuild_flutter/repository/count_repository.dart';
-import 'package:test_api/test_api.dart';
+import 'package:test/test.dart';
 
 class _MockCountRepository extends Mock implements CountRepository {}
 

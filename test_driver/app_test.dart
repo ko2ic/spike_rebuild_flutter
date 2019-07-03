@@ -15,7 +15,7 @@ void main() {
     setUpAll(() async {
       driver = await FlutterDriver.connect();
       final health = await driver.checkHealth();
-      if(health.status == HealthStatus.bad){
+      if (health.status == HealthStatus.bad) {
         fail("Flutter Driver extension disabled");
       }
       Directory('./test_driver/screenshots').create();
@@ -39,14 +39,21 @@ void main() {
     });
 
     test('ボタンを押下してカウントアップ', () async {
-      await driver.tap(buttonFinder);
-      expect(await driver.getText(counterTextFinder), "1");
+      final timeline = await driver.traceAction(() async {
+        await driver.tap(buttonFinder);
+        expect(await driver.getText(counterTextFinder), "1");
+      });
+
+      final summary = TimelineSummary.summarize(timeline);
+      await summary.writeSummaryToFile('tap_summary', pretty: true);
+      await summary.writeTimelineToFile('tap_summary', pretty: true);
+
       await _screenshot(driver, "TopPage0_after_countup.png");
     });
   });
 }
 
-Future<void> _screenshot(FlutterDriver driver,String fileName) async {
+Future<void> _screenshot(FlutterDriver driver, String fileName) async {
   await driver.waitUntilNoTransientCallbacks();
   final pixels = await driver.screenshot();
   final file = File("./test_driver/screenshots/$fileName");

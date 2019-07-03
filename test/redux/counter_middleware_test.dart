@@ -5,7 +5,7 @@ import 'package:spike_rebuild_flutter/redux/middleware/counter_middleware.dart';
 import 'package:spike_rebuild_flutter/redux/reducer/app_state_reducer.dart';
 import 'package:spike_rebuild_flutter/redux/state/app_state.dart';
 import 'package:spike_rebuild_flutter/repository/count_repository.dart';
-import 'package:test_api/test_api.dart';
+import 'package:test/test.dart';
 
 class _MockCountRepository extends Mock implements CountRepository {}
 
