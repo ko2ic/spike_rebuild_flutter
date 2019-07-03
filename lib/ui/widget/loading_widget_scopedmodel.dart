@@ -11,11 +11,15 @@ class LoadingWidget2 extends StatelessWidget {
     return ScopedModelDescendant(
       builder: (context, child, LoadingModel model) {
         return (model.value)
-            ? Container(
-                decoration: const BoxDecoration(color: Color(0x44000000)),
-                child: Center(child: const CircularProgressIndicator()),
+            ? const DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Color(0x44000000),
+                ),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
               )
-            : Container();
+            : const SizedBox.shrink();
       },
     );
   }

@@ -14,11 +14,15 @@ class LoadingWidget4 extends StatelessWidget {
       converter: (Store<AppState> store) => store.state.isLoading,
       builder: (context, isLoading) {
         return (isLoading)
-            ? Container(
-                decoration: const BoxDecoration(color: Color(0x44000000)),
-                child: Center(child: const CircularProgressIndicator()),
+            ? const DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Color(0x44000000),
+                ),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
               )
-            : Container();
+            : const SizedBox.shrink();
       },
     );
   }
