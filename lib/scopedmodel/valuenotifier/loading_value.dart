@@ -8,7 +8,17 @@ class LoadingValue {
   }
 }
 
-class LoadingValue2 with ChangeNotifier {
+// ValueListenableProviderの場合
+class LoadingValue2 extends ValueNotifier<bool> {
+  LoadingValue2() : super(false);
+
+  loading(bool isLoading) {
+    super.value = isLoading;
+  }
+}
+
+// ChangeNotifierProviderの場合
+class LoadingValue3 with ChangeNotifier {
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;

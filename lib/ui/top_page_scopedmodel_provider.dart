@@ -15,10 +15,10 @@ class TopPage2_2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<LoadingValue2>(
+        ListenableProvider<LoadingValue2>(
           builder: (_) => LoadingValue2(),
         ),
-        ChangeNotifierProvider<CounterValue2>(
+        ListenableProvider<CounterValue2>(
           builder: (context) {
             var loading = Provider.of<LoadingValue2>(context, listen: false);
             return CounterValue2(_repository, loading);
@@ -51,11 +51,16 @@ class _WidgetA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("called _WidgetA#build()");
-    var logic = Provider.of<CounterValue2>(context);
+    var logic = Provider.of<CounterValue2>(context, listen: false);
     return Center(
-      child: Text(
-        '${logic.counter}',
-        style: Theme.of(context).textTheme.display1,
+      child: ValueListenableBuilder<int>(
+        valueListenable: logic,
+        builder: (_context, count, _child) {
+          return Text(
+            '$count',
+            style: Theme.of(context).textTheme.display1,
+          );
+        },
       ),
     );
   }

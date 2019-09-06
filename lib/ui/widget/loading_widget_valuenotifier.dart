@@ -34,7 +34,7 @@ class LoadingWidget2_2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var logic = Provider.of<LoadingValue2>(context);
-    return (logic.isLoading)
+    return (logic.value)
         ? const DecoratedBox(
             decoration: BoxDecoration(
               color: Color(0x44000000),
