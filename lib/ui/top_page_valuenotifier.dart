@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:spike_rebuild_flutter/repository/count_repository.dart';
+import 'package:spike_rebuild_flutter/scopedmodel/valuenotifier/counter_value.dart';
+import 'package:spike_rebuild_flutter/scopedmodel/valuenotifier/loading_value.dart';
+import 'package:spike_rebuild_flutter/ui/widget/loading_widget_setstate.dart';
+import 'package:spike_rebuild_flutter/ui/widget/loading_widget_valuenotifier.dart';
 
-class TopPage1 extends StatelessWidget {
+class TopPage5 extends StatelessWidget {
+  final CountRepository repository;
+  final LoadingValue loadingValue;
+
+  TopPage5(this.repository, this.loadingValue);
+
   @override
   Widget build(BuildContext context) {
     return _HomePage(
+      repository: repository,
+      loadingValue: loadingValue,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('ValueNotifier Demo'),
@@ -23,8 +35,13 @@ class TopPage1 extends StatelessWidget {
 }
 
 class _HomePage extends StatefulWidget {
+  final CountRepository repository;
+  final LoadingValue loadingValue;
+
   _HomePage({
     Key key,
+    this.repository,
+    this.loadingValue,
     this.child,
   }) : super(key: key);
 
@@ -38,18 +55,28 @@ class _HomePage extends StatefulWidget {
       return (context.inheritFromWidgetOfExactType(_MyInheritedWidget) as _MyInheritedWidget).data;
     }
     return (context.ancestorInheritedElementForWidgetOfExactType(_MyInheritedWidget).widget as _MyInheritedWidget).data;
-    //return (context.ancestorWidgetOfExactType(_MyInheritedWidget) as _MyInheritedWidget).data;
   }
 }
 
 class _HomePageState extends State<_HomePage> {
-  final counter = ValueNotifier<int>(0);
+  CounterValue counter;
+
+  @override
+  void initState() {
+    super.initState();
+    counter = CounterValue(0, widget.repository, widget.loadingValue);
+  }
 
   @override
   Widget build(BuildContext context) {
     return _MyInheritedWidget(
       data: this,
-      child: widget.child,
+      child: Stack(
+        children: <Widget>[
+          widget.child,
+          LoadingWidget5(widget.loadingValue),
+        ],
+      ),
     );
   }
 }
@@ -73,16 +100,18 @@ class _WidgetA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("called _WidgetA#build()");
-    final _HomePageState state = _HomePage.of(context);
+    final _HomePageState state = _HomePage.of(context, rebuild: false);
 
-    return ValueListenableBuilder<int>(
-        valueListenable: state.counter,
-        builder: (_context, count, _child) {
-          return Text(
-            '$count',
-            style: Theme.of(context).textTheme.display1,
-          );
-        });
+    return Center(
+      child: ValueListenableBuilder<int>(
+          valueListenable: state.counter,
+          builder: (_context, count, _child) {
+            return Text(
+              '$count',
+              style: Theme.of(context).textTheme.display1,
+            );
+          }),
+    );
   }
 }
 
@@ -101,7 +130,7 @@ class _WidgetC extends StatelessWidget {
     final _HomePageState state = _HomePage.of(context, rebuild: false);
     return RaisedButton(
       onPressed: () {
-        state.counter.value++;
+        state.counter.incrementCounter();
       },
       child: Icon(Icons.add),
     );

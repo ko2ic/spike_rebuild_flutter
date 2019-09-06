@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:spike_rebuild_flutter/scopedmodel/valuenotifier/loading_value.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_bloc.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_inheritedwidget.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_redux.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_scopedmodel.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_setstate.dart';
+import 'package:spike_rebuild_flutter/ui/top_page_valuenotifier.dart';
 
 import 'repository/count_repository.dart';
 import 'scopedmodel/loading_model.dart';
@@ -30,6 +32,8 @@ class MyHomePage extends StatelessWidget {
   final CountRepository _repository = CountRepository();
 
   final LoadingModel _loadingModel = LoadingModel();
+
+  final _loadingValue = LoadingValue();
 
   final String title;
 
@@ -127,6 +131,19 @@ class MyHomePage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => TopPage4(_repository),
+                  fullscreenDialog: true,
+                ),
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text("ValueNotifier+InheritedWidgetの場合"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TopPage5(_repository, _loadingValue),
                   fullscreenDialog: true,
                 ),
               );
