@@ -7,3 +7,14 @@ class LoadingValue {
     this.isLoading.value = isLoading;
   }
 }
+
+class LoadingValue2 with ChangeNotifier {
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
+  loading(bool isLoading) {
+    _isLoading = isLoading;
+    notifyListeners();
+  }
+}

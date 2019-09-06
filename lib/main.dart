@@ -4,6 +4,7 @@ import 'package:spike_rebuild_flutter/ui/top_page_bloc.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_inheritedwidget.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_redux.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_scopedmodel.dart';
+import 'package:spike_rebuild_flutter/ui/top_page_scopedmodel_provider.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_setstate.dart';
 import 'package:spike_rebuild_flutter/ui/top_page_valuenotifier.dart';
 
@@ -86,6 +87,32 @@ class MyHomePage extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
+            title: const Text("Scoped Model(ValueNotifier+InheritedWidget)の場合"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TopPage2_1(_repository, _loadingValue),
+                  fullscreenDialog: true,
+                ),
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text("Sceoped Model(Provider)の場合"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TopPage2_2(_repository),
+                  fullscreenDialog: true,
+                ),
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
             title: const Text("BLoCの場合(Provider利用)"),
             onTap: () {
               Navigator.push(
@@ -131,19 +158,6 @@ class MyHomePage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => TopPage4(_repository),
-                  fullscreenDialog: true,
-                ),
-              );
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("ValueNotifier+InheritedWidgetの場合"),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TopPage2_1(_repository, _loadingValue),
                   fullscreenDialog: true,
                 ),
               );
