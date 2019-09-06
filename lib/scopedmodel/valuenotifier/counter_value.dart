@@ -9,13 +9,13 @@ class CounterValue {
 
   CounterValue(this._repository, this._loadingValue);
 
-  final value = ValueNotifier<int>(0);
+  final valueNotifier = ValueNotifier<int>(0);
 
   void incrementCounter() async {
     _loadingValue.loading(true);
     var increaseCount = await _repository.fetch().whenComplete(() {
       _loadingValue.loading(false);
     });
-    value.value += increaseCount;
+    valueNotifier.value += increaseCount;
   }
 }

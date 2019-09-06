@@ -103,13 +103,14 @@ class _WidgetA extends StatelessWidget {
 
     return Center(
       child: ValueListenableBuilder<int>(
-          valueListenable: state.counter.value,
-          builder: (_context, count, _child) {
-            return Text(
-              '$count',
-              style: Theme.of(context).textTheme.display1,
-            );
-          }),
+        valueListenable: state.counter.valueNotifier,
+        builder: (_context, count, _child) {
+          return Text(
+            '$count',
+            style: Theme.of(context).textTheme.display1,
+          );
+        },
+      ),
     );
   }
 }
