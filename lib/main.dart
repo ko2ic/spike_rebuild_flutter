@@ -143,7 +143,7 @@ class MyHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TopPage5(_repository, _loadingValue),
+                  builder: (context) => TopPage2_1(_repository, _loadingValue),
                   fullscreenDialog: true,
                 ),
               );

@@ -3,14 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:spike_rebuild_flutter/repository/count_repository.dart';
 import 'package:spike_rebuild_flutter/scopedmodel/valuenotifier/counter_value.dart';
 import 'package:spike_rebuild_flutter/scopedmodel/valuenotifier/loading_value.dart';
-import 'package:spike_rebuild_flutter/ui/widget/loading_widget_setstate.dart';
 import 'package:spike_rebuild_flutter/ui/widget/loading_widget_valuenotifier.dart';
 
-class TopPage5 extends StatelessWidget {
+class TopPage2_1 extends StatelessWidget {
   final CountRepository repository;
   final LoadingValue loadingValue;
 
-  TopPage5(this.repository, this.loadingValue);
+  TopPage2_1(this.repository, this.loadingValue);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +63,7 @@ class _HomePageState extends State<_HomePage> {
   @override
   void initState() {
     super.initState();
-    counter = CounterValue(0, widget.repository, widget.loadingValue);
+    counter = CounterValue(widget.repository, widget.loadingValue);
   }
 
   @override
@@ -74,7 +73,7 @@ class _HomePageState extends State<_HomePage> {
       child: Stack(
         children: <Widget>[
           widget.child,
-          LoadingWidget5(widget.loadingValue),
+          LoadingWidget2_1(widget.loadingValue),
         ],
       ),
     );
@@ -104,7 +103,7 @@ class _WidgetA extends StatelessWidget {
 
     return Center(
       child: ValueListenableBuilder<int>(
-          valueListenable: state.counter,
+          valueListenable: state.counter.value,
           builder: (_context, count, _child) {
             return Text(
               '$count',

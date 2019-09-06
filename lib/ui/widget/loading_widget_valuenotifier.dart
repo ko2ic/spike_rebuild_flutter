@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:spike_rebuild_flutter/scopedmodel/valuenotifier/loading_value.dart';
 
-class LoadingWidget5 extends StatelessWidget {
+class LoadingWidget2_1 extends StatelessWidget {
   final LoadingValue value;
 
-  const LoadingWidget5(this.value);
+  const LoadingWidget2_1(this.value);
 
   @override
   Widget build(BuildContext context) {
