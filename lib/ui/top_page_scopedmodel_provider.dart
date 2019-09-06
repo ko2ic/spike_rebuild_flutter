@@ -15,10 +15,10 @@ class TopPage2_2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ListenableProvider<LoadingValue2>(
+        ChangeNotifierProvider<LoadingValue2>(
           builder: (_) => LoadingValue2(),
         ),
-        ListenableProvider<CounterValue2>(
+        ChangeNotifierProvider<CounterValue2>(
           builder: (context) {
             var loading = Provider.of<LoadingValue2>(context, listen: false);
             return CounterValue2(_repository, loading);
